@@ -4,6 +4,10 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
+def apiKeysPropertiesFile = rootProject.file("api-keys.properties")
+def apiKeysProperties = new Properties()
+apiKeysProperties.load(new FileInputStream(apiKeysPropertiesFile))
+
 android {
     namespace 'com.example.mygeofence'
     compileSdk 33
@@ -14,6 +18,8 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        resValue("string", "google_maps_api_key", apiKeysProperties['GOOGLE_MAPS_API_KEY'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
